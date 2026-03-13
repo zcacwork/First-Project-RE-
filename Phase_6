@@ -1,0 +1,20 @@
+defrecommend_places(user_lat, user_lon, category=None):
+    data = pd.read_csv("places.csv")
+
+    distances = []
+for _, rowin data.iterrows():
+        d = haversine(user_lat, user_lon, row['latitude'], row['longitude'])
+        distances.append(d)
+
+    data['distance'] = distances
+
+    scaler = MinMaxScaler()
+    data[['distance','rating']] = scaler.fit_transform(data[['distance','rating']])
+
+    data['score'] =0.6 * data['rating'] +0.4 * (1 - data['distance'])
+
+if category:
+        data = data[data['category'] == category]
+
+return data.sort_values(by='score', ascending=False)
+
