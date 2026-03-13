@@ -1,0 +1,10 @@
+# weights (you can tune these)
+w_rating =0.6
+w_distance =0.4
+
+data['score'] = (w_rating * data['rating']) + (w_distance * (1 - data['distance']))
+
+recommended = data.sort_values(by='score', ascending=False)
+
+print(recommended[['name','category','score']])
+
