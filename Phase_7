@@ -1,0 +1,17 @@
+from flaskimport Flask, request, jsonify
+from recommenderimport recommend_places
+
+app = Flask(__name__)
+
+@app.route("/recommend", methods=["GET"])
+defrecommend():
+    lat =float(request.args.get("lat"))
+    lon =float(request.args.get("lon"))
+    category = request.args.get("category")
+
+    result = recommend_places(lat, lon, category)
+return jsonify(result[['name','category','score']].to_dict(orient="records"))
+
+if __name__ =="__main__":
+    app.run(debug=True)
+
